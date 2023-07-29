@@ -1,20 +1,27 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const sqlite3 = require('sqlite3').verbose();
 
 app.use(cors());
 app.use(express.json());
 
 const { Pool } = require('pg');
 
+PGHOST='ep-black-pond-15230669.us-east-2.aws.neon.tech'
+PGDATABASE='neondb'
+PGUSER='rondicunha'
+PGPASSWORD='uPZxLDm7s0Ol'
 
 const pool = new Pool({
-  user: 'postgres',
-  password: 'password',
-  host: 'localhost',
-  port: 5432, 
-  database: 'financasDB',
+  user: 'rondicunha',
+  password: 'uPZxLDm7s0Ol',
+  host: 'ep-black-pond-15230669.us-east-2.aws.neon.tech', // Exemplo: db.neon.tech
+  port: 5432, // Porta padrão do PostgreSQL
+  database: 'neondb',
+  ssl: {
+    rejectUnauthorized: false, // Adicione essa opção para evitar erros de certificado no desenvolvimento
+    sslmode: 'require', // Use sslmode=require para forçar o uso do SSL
+  },
 });
 
 app.delete('/items/:id', function (req, res) {
